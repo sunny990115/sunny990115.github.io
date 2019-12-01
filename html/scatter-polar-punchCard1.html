@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+
+var hours = ['家一般的感觉让人放松', '贴近当地人生活方式', '性价比高', '喜欢民宿装修风格', '空间多方便交流', '房源独具特色', '乐意与房东交流',
+        ];
+var days = [];
+
+var data = [[0,0,57],[0,1,50],[0,2,45],[0,3,43],[0,4,42],[0,5,39],[0,6,37]];
+
+option = {
+    title: {
+        text: '千禧一代最近一次旅行选择民宿的原因',
+        link: 'https://github.com/pissang/echarts-next/graphs/punch-card'
+    },
+    legend: {
+        data: [''],
+        left: 'right'
+    },
+    polar: {},
+    tooltip: {
+        formatter: function (params) {
+            return params.value[2] + ' % ' + hours[params.value[1]] ;
+        }
+    },
+    angleAxis: {
+        type: 'category',
+        data: hours,
+        boundaryGap: false,
+        splitLine: {
+            show: true,
+            lineStyle: {
+                color: '#999',
+                type: 'dashed'
+            }
+        },
+        axisLine: {
+            show: false
+        }
+    },
+    radiusAxis: {
+        type: 'category',
+        data: days,
+        axisLine: {
+            show: false
+        },
+        axisLabel: {
+            rotate: 45
+        }
+    },
+    series: [{
+        name: 'Punch Card',
+        type: 'scatter',
+        coordinateSystem: 'polar',
+        symbolSize: function (val) {
+            return val[2] * 2;
+        },
+        data: data,
+        animationDelay: function (idx) {
+            return idx * 5;
+        }
+    }]
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
